@@ -11,16 +11,18 @@
 class Solution {
 public:
     ListNode* head = NULL;
-    Solution(ListNode* head){
+    Solution(ListNode* head) {
         this->head = head;
     }
-    int getRandom(){
-        ListNode *p = this->head;
-        int ans = 0, i = 1;
+    
+    int getRandom() {
+        ListNode* p = this->head;
+        int ans = 0;
+        int i = 1;
         while(p){
-            if(rand()%i == 0) ans = p->val;
-            i++;
+            if(rand() % i == 0) ans = p->val;
             p = p->next;
+            i++;
         }
         return ans;
     }
