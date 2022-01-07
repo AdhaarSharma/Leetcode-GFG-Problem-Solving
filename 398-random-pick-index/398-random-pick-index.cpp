@@ -6,14 +6,11 @@ public:
         this->nums = nums;
     }
     int pick(int target) {
-        vector<int> dupIndex;
+        int n = 0, ans = 0;
         for(int i=0; i<nums.size(); i++){
-            if(nums[i] == target)
-                dupIndex.push_back(i);
-        }
-        int ans = 0;
-        for(int i = 0; i<dupIndex.size(); i++){
-            if(rand() % (i+1) == 0) ans = dupIndex[i];
+            if(nums[i] != target) continue;
+            n++;
+            if(rand() % n == 0) ans = i;
         }
         return ans;
     }
