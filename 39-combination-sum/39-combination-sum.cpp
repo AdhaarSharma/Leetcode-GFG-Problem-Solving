@@ -9,7 +9,7 @@ public:
     }
 private:
     void combinationSum(vector<int> &candidates, int target, 
-                        vector<vector<int> > &res, vector<int> &combination, int begin){
+                        vector<vector<int>> &res, vector<int> &combination, int begin){
         if (target==0) {
             res.push_back(combination);
             return;
