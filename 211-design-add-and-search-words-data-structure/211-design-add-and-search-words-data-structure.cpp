@@ -32,17 +32,17 @@ public:
     }
     
     bool TrieSearch(string s, node* curr, int pos, int n){
-        if(s[pos]=='.')
-        {
+        if(s[pos] == '.'){
             bool res = false;
-            node *current = curr;
-            for(int i=0;i<26;++i){
+            node* current = curr;
+            for(int i=0; i<26; i++){
                 if(pos == n-1 && curr->child[i]){
                     current = curr->child[i];
                     res |= current->end>0?true:false;
                 }
-                else if(curr->child[i] && TrieSearch(s,curr->child[i],pos+1,n))
+                else if(curr->child[i] && TrieSearch(s, curr->child[i], pos+1, n)){
                     return true;
+                }
             }
             return res;
         }
