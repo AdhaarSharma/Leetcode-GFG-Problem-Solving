@@ -29,5 +29,4 @@ public:
         }
         return s.substr(start,maxLength);
     }
-        
 };
