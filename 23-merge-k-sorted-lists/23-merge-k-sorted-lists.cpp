@@ -14,10 +14,16 @@ public:
         if(lists.empty()){
             return nullptr;
         }
-        while(lists.size() > 1){
-            lists.push_back(mergeTwoLists(lists[0], lists[1]));
-            lists.erase(lists.begin());
-            lists.erase(lists.begin());
+        int k = lists.size()-1;
+        while(k!=0) {
+            int i = 0,j = k;
+            while(i<j) {
+                lists[i]=mergeTwoLists(lists[i],lists[j]);
+                i++;
+                j--;
+                if(i>=j) 
+                    k=j;
+            }
         }
         return lists.front();
     }
