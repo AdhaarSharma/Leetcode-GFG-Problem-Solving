@@ -10,37 +10,28 @@
  */
 class Solution {
 public:
-    ListNode *mergeKLists(vector<ListNode *> &lists) {
-        if(lists.empty()){
-            return nullptr;
+    struct compare {
+        bool operator()(const ListNode* l, const ListNode* r) {
+            return l->val > r->val;
         }
-        int k = lists.size()-1;
-        while(k!=0) {
-            int i = 0,j = k;
-            while(i<j) {
-                lists[i]=mergeTwoLists(lists[i],lists[j]);
-                i++;
-                j--;
-                if(i>=j) 
-                    k=j;
-            }
+    };
+    ListNode *mergeKLists(vector<ListNode *> &lists) { //priority_queue
+        priority_queue<ListNode *, vector<ListNode *>, compare> q;
+        for(auto l : lists) {
+            if(l)  q.push(l);
         }
-        return lists.front();
-    }
-    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-        if(l1 == nullptr){
-            return l2;
+        if(q.empty())  return NULL;
+
+        ListNode* result = q.top();
+        q.pop();
+        if(result->next) q.push(result->next);
+        ListNode* tail = result;            
+        while(!q.empty()) {
+            tail->next = q.top();
+            q.pop();
+            tail = tail->next;
+            if(tail->next) q.push(tail->next);
         }
-        if(l2 == nullptr){
-            return l1;
-        }
-        if(l1->val <= l2->val){
-            l1->next = mergeTwoLists(l1->next, l2);
-            return l1;
-        }
-        else{
-            l2->next = mergeTwoLists(l1, l2->next);
-            return l2;
-        }
+        return result;
     }
 };
