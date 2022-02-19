@@ -1,21 +1,22 @@
 class Solution {
 public:
     int minimumDeviation(vector<int>& nums) {
-        priority_queue<int> maxpq; //max heap
-        int m = INT_MAX, diff = INT_MAX;
-        for(auto i : nums){
-            if(i%2 != 0) i*=2;
-            m = min(m, i);
-            maxpq.push(i);
-        }
         
-        while(maxpq.top()%2 == 0) {
-            int mx = maxpq.top();
-            maxpq.pop();
-            diff = min(diff, mx - m);
-            m = min(m, mx/2);
-            maxpq.push(mx/2);
+        set <int>  s;
+        
+        for(int i = 0; i<nums.size() ; ++i)
+            if(nums[i] % 2 == 0)
+                s.insert(nums[i]);
+            else
+                s.insert(nums[i] * 2);
+        
+        int diff = *s.rbegin() - *s.begin();
+        while(*s.rbegin() % 2 == 0){
+            int x = *s.rbegin();
+            s.erase(x);
+            s.insert(x/2);
+            diff = min(diff, *s.rbegin() - *s.begin());
         }
-        return min(diff, maxpq.top() - m);
+        return diff;
     }
 };
