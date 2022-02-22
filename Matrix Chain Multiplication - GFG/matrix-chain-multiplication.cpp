@@ -9,19 +9,20 @@ using namespace std;
 
 class Solution{
 public:
-    int dp[1000][1000];
     int matrixMultiplication(int N, int arr[])
     {
-        memset(dp,-1,sizeof(dp));
-        return MCM(arr, 1, N-1);
-    }
-    int MCM(int arr[], int i, int j){
-        if(i==j) return 0;
-        if(dp[i][j]!=-1) return dp[i][j];
-        dp[i][j] = INT_MAX;
-        for(int k=i; k<j; k++)
-            dp[i][j] = min(dp[i][j], MCM(arr,i,k)+MCM(arr,k+1,j)+arr[i-1]*arr[k]*arr[j]);
-        return dp[i][j];
+        int i, j, len, k;
+        int dp[N][N];
+        for(i=0; i<N; i++)
+            dp[i][i]=0;
+        for(len=2; len<N; len++)
+            for(i=1; i<N-len+1; i++){
+                j=i+len-1;
+                dp[i][j]=INT_MAX;
+                for(k=i; k<j; k++)
+                    dp[i][j] = min(dp[i][j], dp[i][k]+dp[k+1][j]+arr[i-1]*arr[k]*arr[j]);
+            }
+        return dp[1][N-1];
     }
 };
 
