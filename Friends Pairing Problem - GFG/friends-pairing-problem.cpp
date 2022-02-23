@@ -13,7 +13,7 @@ public:
             return n;
         }
         for (int i = 3; i <= n; i++) {
-            c=b+(i-1)*a%mod;
+            c=(b+(i-1)*a)%mod;
             a=b%mod;
             b=c%mod;
         }
