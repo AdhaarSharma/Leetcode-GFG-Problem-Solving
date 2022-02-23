@@ -14,10 +14,10 @@ public:
         }
         for (int i = 3; i <= n; i++) {
             c=(b+(i-1)*a)%mod;
-            a=b%mod;
-            b=c%mod;
+            a=b;
+            b=c;
         }
-        return c%mod;
+        return c;
     }
 };   
  
