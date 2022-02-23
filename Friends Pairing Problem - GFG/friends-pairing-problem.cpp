@@ -6,19 +6,18 @@ using namespace std;
 class Solution
 {
 public:
-    int countFriendsPairings(int n) { 
-        int mod=1e9+7;
-        long long int a = 1, b = 2, c = 0;
-        if (n <= 2) {
-            return n;
+    int countFriendsPairings(int n) 
+    { 
+        int dp[n+1]{0};
+        int m=1e9+7;
+        dp[1]=1;
+        dp[2]=2;
+        for(long long int i=3; i<=n; i++){
+            dp[i] = (dp[i-1]+(i-1)*dp[i-2])%m;
         }
-        for (int i = 3; i <= n; i++) {
-            c=(b+(i-1)*a)%mod;
-            a=b%mod;
-            b=c%mod;
-        }
-        return c%mod;
+        return dp[n]%m;
     }
+
 };    
  
 
