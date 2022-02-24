@@ -2,10 +2,6 @@ class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
         int len1 = text1.length(), len2 = text2.length();
-        return len1>len2?LCS(text1, text2):LCS(text2, text1);
-    }
-    int LCS(string text1, string text2){
-        int len1 = text1.length(), len2 = text2.length();
         int dp[2][len2+1];
         memset(dp,0,sizeof(dp));
         for(int i = 0; i<=len1; i++)
