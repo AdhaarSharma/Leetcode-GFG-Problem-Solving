@@ -14,10 +14,10 @@ class Solution{
 	{ 
         vector<int> dp(W+1,9999999);
         dp[0]=0;
-        for(int i=1; i<=N; i++){
-            for(int j=i; j<=W; j++){
-                if(cost[i-1]!=-1)
-                    dp[j]=min(dp[j],cost[i-1]+dp[j-i]);
+        for(int i=1; i<=W; i++){
+            for(int j=1; j<=i; j++){
+                if(j<=N && cost[j-1]!=-1)
+                    dp[i]=min(dp[i],cost[j-1]+dp[i-j]);
             }
         }
         return dp[W]==9999999?-1:dp[W];
