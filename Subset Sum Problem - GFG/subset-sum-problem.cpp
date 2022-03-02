@@ -6,25 +6,33 @@ using namespace std;
 
  // } Driver Code Ends
 //User function template for C++
-
 class Solution{   
 public:
-    bool isSubsetSum(int N, int arr[], int sum){
-        bool dp[N+1][sum+1];
-        int i,j;
-        for(i=0; i<=N; i++)
-            dp[i][0]=true;
-        for(i=1; i<=sum; i++)
-            dp[0][i]=false;
-        for(i=1; i<=N; i++)
-            for(j=1; j<=sum; j++){
-                if(arr[i-1]>sum)
-                    dp[i][j]=dp[i-1][j];
-                else
-                    dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i-1]];
-            }
-        return dp[N][sum];
-    }
+   //vector <vector<int>> dp ;
+    int dp[100][10000] ;
+   bool isSubsetSum(int n, int arr[], int sum)   // n is no of element in a[]
+   {
+       //dp.resize(n+1,vector<int>(sum+1,-1)) ;
+       memset(dp,-1,sizeof(dp)) ;
+      return subsum (n,arr,sum) ;
+   }   
+       
+   int subsum (int n, int a[], int sum)
+   {
+       if (sum == 0)
+         return 1 ;
+         
+       if (n<=0 or sum<0)
+          return 0 ;
+          
+       if (dp[n-1][sum] != -1)   
+          return dp[n-1][sum] ;
+          
+       if (a[n-1] > sum)
+          return dp[n-1][sum] = subsum (n-1,a,sum) ;
+          
+       return dp[n-1][sum] = subsum (n-1,a,sum) || subsum (n-1,a,sum-a[n-1]) ;
+   }
 };
 
 // { Driver Code Starts.
