@@ -10,22 +10,23 @@ using namespace std;
 
 class Solution{
   public:
-    int dp[1000][1000];
     int longestPalinSubseq(string A) {
-        memset(dp,-1,sizeof(dp));
-        return dp[0][A.length()] = lps(A, 0, A.length());
-    }
-    int lps(string A, int i, int j){
-        if(i==j)
-            return 1;
-        if(dp[i][j] != -1)
-            return dp[i][j];
-        if(A[i]==A[j] && i+1==j)
-            return dp[i][j] = 2;
-        else if(A[i]==A[j])
-            return dp[i][j] = 2+lps(A,i+1,j-1);
-        else
-            return dp[i][j] = max(lps(A,i+1,j),lps(A,i,j-1));
+        int n = A.length();
+        int dp[n+1][n+1];
+        for(int i=0; i<=n; i++)
+            dp[i][i] = 1;
+        for(int len=2; len<=n; len++){
+            for(int i=0; i<n-len+1; i++){
+                int j=i+len-1;
+                if(A[i]==A[j] && i+1==j)
+                    dp[i][j]=2;
+                else if(A[i]==A[j])
+                    dp[i][j] = 2+dp[i+1][j-1];
+                else
+                    dp[i][j] = max(dp[i+1][j],dp[i][j-1]);
+            }
+        }
+        return dp[0][n-1];
     }
 };
 
