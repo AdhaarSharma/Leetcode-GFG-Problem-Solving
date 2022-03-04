@@ -20,7 +20,7 @@ public:
             int low = 0;
             int high = i-1;
             while(low<=high){
-                int mid = (low+high)/2;
+                int mid = (low+high)>>1;
                 if(jobs[mid][1] <= jobs[i][0]){
                     last = mid;
                     low = mid+1;
