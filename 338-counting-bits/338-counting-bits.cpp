@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> countBits(int num) {
-        //mem[i] = No of 1s from 0 to number i
+        
         vector<int> mem(num+1);
         mem[0] = 0;
         
