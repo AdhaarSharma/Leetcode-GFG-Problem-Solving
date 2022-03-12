@@ -12,7 +12,6 @@ public:
             } else {
                 a+=mp[s[i]];
             }
-            cout<<a<<endl;
         }
         return a;
     }
