@@ -13,7 +13,7 @@ public:
         for(auto c: s1) a[c-'a']++;
         while(j<s2.size()){
             b[s2[j]-'a']++;
-            if(j-i+1==s1.size() && areVectorsEqual(a,b)) return true;
+            if(j-i+1==s1.size() && a==b) return true;
             if(j-i+1<s1.size()) j++;
             else{
                 b[s2[i]-'a']--;
