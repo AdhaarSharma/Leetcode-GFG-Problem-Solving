@@ -1,10 +1,4 @@
 class Solution {
-    bool areVectorsEqual(vector<int> a, vector<int> b){
-        for(int i=0; i<26; i++){
-            if(a[i]!=b[i]) return false;
-        }
-        return true;
-    }
 public:
     bool checkInclusion(string s1, string s2) {
         if(s2.size()<s1.size()) return false;
