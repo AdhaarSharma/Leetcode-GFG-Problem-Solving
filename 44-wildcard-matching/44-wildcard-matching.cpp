@@ -5,8 +5,7 @@ public:
         bool dp[s.length()+1][p.length()+1];
         
         for( int i = 0 ;i <= s.length() ; i++ ){
-            for( int j = 0 ; j <= p.length() ; j++ ){
-                //exception if the first character of p is * then 
+            for( int j = 0 ; j <= p.length() ; j++ ){ 
                 if( i == 0 || j == 0 ){
                     if( i== 0 && j == 0 ){
                         dp[0][0] = true;
