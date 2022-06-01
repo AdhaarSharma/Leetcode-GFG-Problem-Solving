@@ -1,26 +1,54 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        vector<bool> dp(p.size() + 1, false);
-        dp[0] = true;
-        for (int j = 0; j < p.size() && p[j] == '*'; ++j) {
-            dp[j + 1] = true;
-        }
         
-        for (int i = 1; i <= s.size(); ++i) {
-            dp[0] = false;
-            bool neighborLastRow = i == 1;
-            for (int j = 1; j <= p.size(); ++j) {
-                bool currLastRow = dp[j];
-                if (p[j - 1] == '*') {
-                    dp[j] = currLastRow || dp[j - 1];
-                } else {
-                    dp[j] = (s[i - 1] == p[j - 1] || p[j - 1] == '?') && neighborLastRow;
+        bool dp[s.length()+1][p.length()+1];
+        
+        dp[0][0] = true;
+        
+        for( int i = 0 ;i <= s.length() ; i++ ){
+            for( int j = 0 ; j <= p.length() ; j++ ){
+                //exception if the first character of p is * then 
+                if( i == 0 || j == 0 ){
+                    if( i== 0 && j == 0 ){
+                        continue;
+                    }else if( j == 0 ){
+                        dp[i][j] = false;
+                    }else if( p[j-1] == '*' ){
+                        dp[i][j] = dp[i][j-1];
+                    }else{
+                        dp[i][j] = false;
+                    }
                 }
-                neighborLastRow = currLastRow;
+                
+                else if( p[j-1] == '*' ){
+                    
+                    if( dp[i-1][j] || dp[i][j-1] ){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = false;
+                    }
+                }else if( s[i-1] == p[j-1] || p[j-1] == '?'){
+                    if( dp[i-1][j-1] ){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = false;
+                    }
+                }else{
+                    
+                    dp[i][j] = false;
+                }
             }
         }
-
-        return dp[p.size()];
+        
+//         for( int i = 0 ;i <= s.length() ; i++ ){
+//             for( int j = 0 ; j <= p.length() ; j++ ){
+//                 cout << dp[i][j] << " ";
+//             }
+//             cout << endl;
+//         }
+        
+        return dp[s.length()][p.length()];
+        
     }
 };
