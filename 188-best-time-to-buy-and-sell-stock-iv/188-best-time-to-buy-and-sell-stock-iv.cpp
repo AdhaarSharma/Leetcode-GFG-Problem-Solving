@@ -17,9 +17,9 @@ public:
         }
         
         //Case-3: 1<=k<n
-        int dp[2*k+1];
+        int dp[2*k];
         dp[0]=-prices[0];
-        for(int i=1;i<=2*k;++i)
+        for(int i=1;i<2*k;++i)
         {
             if(i%2==0)  //Buy
                 dp[i]=INT_MIN;
@@ -28,7 +28,7 @@ public:
         }
         
         for(int i=0;i<n;++i)
-        for(int j=0;j<=2*k;++j)
+        for(int j=0;j<2*k;++j)
         {
             if(j==0)
                 dp[j]=max(dp[j],-prices[i]);
