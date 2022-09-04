@@ -1,21 +1,14 @@
 class Solution {
 public:
     int secondsToRemoveOccurrences(string s) {
-        int n = s.size(), ans = 0;
-        while(1)
-        {
-            vector<int> v;
-            for(int i = 0; i < n-1; i++)
-            {
-                if(s[i] == '0' && s[i+1] == '1') v.push_back(i);
+        int ans = 0;
+        int num1 = 0;
+        for(int i = 0; i < s.length(); i++) {
+            if(s[i] == '1') {
+                if(ans > 0) {ans = max(i - num1, ans + 1);}
+                else {ans = i - num1;}
+                num1++;
             }
-            int len = v.size();
-            if(!len) return ans;
-            for(int i = 0; i < len; i++)
-            {
-                swap(s[v[i]], s[v[i]+1]);
-            }
-            ans += 1;
         }
         return ans;
     }
