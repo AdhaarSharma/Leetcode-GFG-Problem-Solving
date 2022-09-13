@@ -1,30 +1,45 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int> ans;
-        vector<int> indegree(numCourses,0);
-        vector<vector<int>> graph(numCourses, vector<int>());
-        for(auto p:prerequisites){
-            graph[p[1]].push_back(p[0]);
-            indegree[p[0]]++;
+        graph g = buildGraph(numCourses, prerequisites);
+        vector<int> degrees = computeIndegrees(g);
+        vector<int> order;
+        for (int i = 0; i < numCourses; i++) {
+            int j = 0;
+            for (; j < numCourses; j++) {
+                if (!degrees[j]) {
+                    order.push_back(j);
+                    break;
+                }
+            }
+            if (j == numCourses) {
+                return {};
+            }
+            degrees[j]--;
+            for (int v : g[j]) {
+                degrees[v]--;
+            }
+        }        
+        return order;
+    }
+private:
+    typedef vector<vector<int>> graph;
+    
+    graph buildGraph(int numCourses, vector<vector<int>>& prerequisites) {
+        graph g(numCourses);
+        for (auto p : prerequisites) {
+            g[p[1]].push_back(p[0]);
         }
-        queue<int> q;
-        for(int i=0; i<numCourses; i++)
-            if(!indegree[i])
-                q.push(i);
-        while(!q.empty()){
-            int u = q.front(); q.pop();
-            ans.push_back(u);
-            for(auto v:graph[u]){
-                indegree[v]--;
-                if(indegree[v]==0)
-                    q.push(v);
+        return g;
+    }
+    
+    vector<int> computeIndegrees(graph& g) {
+        vector<int> degrees(g.size(), 0);
+        for (auto adj : g) {
+            for (int v : adj) {
+                degrees[v]++;
             }
         }
-        if(ans.size()==numCourses)
-            return ans;
-        else
-            return {};
-        
+        return degrees;
     }
 };
