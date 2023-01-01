@@ -12,6 +12,4 @@ public:
         }
         return i == n;
     }
-        
-
 };
