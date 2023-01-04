@@ -1,14 +1,22 @@
 class Solution {
 public:
-    int minimumRounds(vector<int>& A) {
-        unordered_map<int, int> count;
-        int res = 0, freq1;
-        for (int a: A)
-            ++count[a];
-        for (auto& it: count) {
-            if (it.second == 1) return -1;
-            res += (it.second + 2) / 3;
+    int minimumRounds(vector<int>& tasks) {
+        map<int,int> hm;
+        for(int i=0;i<tasks.size();i++){
+            hm[tasks[i]]++;
         }
-        return res;
+        int num,freq,ans=0;
+        for (auto i : hm){
+            freq = i.second;
+            if(freq==1)
+                return -1;
+            if(freq%3==0){
+                ans += freq/3;
+            }
+            else{
+                ans += freq/3 + 1;
+            }
+        }
+        return ans;
     }
 };
