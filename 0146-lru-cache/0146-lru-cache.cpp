@@ -2,7 +2,7 @@ class LRUCache {
   public:
     class node {
       public:
-        int key;
+      int key;
       int val;
       node * next;
       node * prev;
