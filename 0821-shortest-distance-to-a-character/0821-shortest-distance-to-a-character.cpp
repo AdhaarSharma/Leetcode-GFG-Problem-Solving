@@ -1,19 +1,14 @@
 class Solution {
 public:
-    vector<int> shortestToChar(string s, char c) {
-        int n = s.length();
-        vector<int>left(n, INT_MAX), right(n, INT_MAX);
-        bool left1 = false, right1 = false;
-        for(int i=0; i<n; i++){
-            if(s[i] == c) left[i] = 0, left1 = true;
-            else if(left1 == true) left[i] = left[i-1] + 1;
-            if(s[n-i-1] == c) right[n-i-1] = 0, right1 = true;
-            else if(right1 == true) right[n-i-1] = right[n-i] + 1;
-        }
-        vector<int> ans(n,INT_MAX);
-        for(int i=0; i<n; i++){
-            ans[i] = min(left[i], right[i]);
-        }
-        return ans;
+    vector<int> shortestToChar(string S, char C) {
+        int n = S.size();
+        vector<int> res(n);
+        for (int i = 0; i < n; ++i)
+            res[i] = S[i] == C ? 0 : n;
+        for (int i = 1; i < n; ++i)
+            res[i] = min(res[i], res[i - 1] + 1);
+        for (int i = n - 2; i >= 0; --i)
+            res[i] = min(res[i], res[i + 1] + 1);
+        return res;
     }
 };
