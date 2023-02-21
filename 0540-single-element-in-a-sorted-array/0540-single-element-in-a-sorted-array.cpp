@@ -1,10 +1,27 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        int ans = nums[0];
-        for(int i=1; i<nums.size(); i++){
-            ans ^= nums[i];
+        int l=0;
+        int r=nums.size()-1;
+        while(l<r){
+            int mid=(l+r)/2;
+            if(mid%2==0){
+                if(nums[mid]==nums[mid+1]){
+                    l=mid+1;
+                }
+                else{
+                    r=mid;
+                }
+            }
+            else{
+                if(nums[mid]!=nums[mid+1]){
+                    l=mid+1;
+                }
+                else{
+                    r=mid;
+                }
+            }
         }
-        return ans;
+        return nums[l];
     }
 };
