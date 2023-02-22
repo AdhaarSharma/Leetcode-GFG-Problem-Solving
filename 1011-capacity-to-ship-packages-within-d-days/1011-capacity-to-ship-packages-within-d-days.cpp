@@ -1,20 +1,17 @@
 class Solution {
 public:
-    int countDays(vector<int>& ws, int tot_cap, int cur_cap = 0, int res = 1) {
-        for (auto w : ws) {
-            cur_cap += w;
-            if (cur_cap > tot_cap) ++res, cur_cap = w;
+    int shipWithinDays(vector<int>& weights, int D) {
+        int left = 0, right = 25000000;
+        for (int w: weights)
+            left = max(left, w);
+        while (left < right) {
+            int mid = (left + right) / 2, need = 1, cur = 0;
+            for (int i = 0; i < weights.size() && need <= D; cur += weights[i++])
+                if (cur + weights[i] > mid)
+                    cur = 0, need++;
+            if (need > D) left = mid + 1;
+            else right = mid;
         }
-        return res;
-    }
-    int shipWithinDays(vector<int>& ws, int D) {
-        auto r = accumulate(begin(ws), end(ws), 0);
-        auto l = max(r / D, *max_element(begin(ws), end(ws)));
-        while (l < r) {
-            auto m = (l + r) / 2;
-            if (countDays(ws, m) <= D) r = m;
-            else l = m + 1;
-        }
-        return l;
+        return left;
     }
 };
