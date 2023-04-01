@@ -8,15 +8,15 @@ public:
                 return mid;
             else if(nums[mid] >= nums[h]){
                 if(nums[l] <= target && target < nums[mid])
-                    h = mid - 1, cout<<h<<endl;
+                    h = mid - 1;
                 else
-                    l = mid + 1, cout<<l<<endl;
+                    l = mid + 1;
             }
             else if(nums[mid] <= nums[l]) {
                 if(nums[mid] < target && target <= nums[h])
-                    l = mid + 1, cout<<l<<endl;
+                    l = mid + 1;
                 else
-                    h = mid - 1, cout<<h<<endl;
+                    h = mid - 1;
             }
             else {
                 if(nums[mid] > target){
