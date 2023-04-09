@@ -25,10 +25,10 @@ public:
         Node* new_root = new Node(node->val);
         visited[node] = new_root;
         for(auto n:node->neighbors){
-            if(!visited[n])
-                new_root->neighbors.push_back(recur(n, visited));
-            else
+            if(visited.find(n)!=visited.end())
                 new_root->neighbors.push_back(visited[n]);
+            else
+                new_root->neighbors.push_back(recur(n, visited));
         }
         return new_root;
     }
