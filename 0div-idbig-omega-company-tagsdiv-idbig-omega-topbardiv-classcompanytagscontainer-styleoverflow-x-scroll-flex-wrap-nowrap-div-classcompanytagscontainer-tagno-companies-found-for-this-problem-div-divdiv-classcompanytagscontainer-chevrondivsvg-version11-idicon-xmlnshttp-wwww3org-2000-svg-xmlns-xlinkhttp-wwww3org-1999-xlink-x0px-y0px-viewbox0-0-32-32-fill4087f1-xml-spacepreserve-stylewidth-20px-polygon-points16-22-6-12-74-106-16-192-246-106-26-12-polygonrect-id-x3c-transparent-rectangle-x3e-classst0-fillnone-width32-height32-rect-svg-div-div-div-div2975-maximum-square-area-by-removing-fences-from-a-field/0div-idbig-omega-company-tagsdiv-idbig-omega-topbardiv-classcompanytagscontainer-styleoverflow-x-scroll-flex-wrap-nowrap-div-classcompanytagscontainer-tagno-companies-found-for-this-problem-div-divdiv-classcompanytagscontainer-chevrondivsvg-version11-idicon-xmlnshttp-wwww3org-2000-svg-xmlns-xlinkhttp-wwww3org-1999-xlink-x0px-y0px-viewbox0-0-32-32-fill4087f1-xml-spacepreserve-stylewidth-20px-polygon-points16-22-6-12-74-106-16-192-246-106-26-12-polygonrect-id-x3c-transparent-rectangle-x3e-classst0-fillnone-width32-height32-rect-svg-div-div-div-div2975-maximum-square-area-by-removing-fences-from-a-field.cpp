@@ -4,11 +4,9 @@ public:
         // time = O(h^2 + v^2)
         // space = O(max(h,v) + min(h,v)^2)
         sort(hFences.begin(), hFences.end());
-        hFences.reserve(hFences.size() + 2);
         hFences.insert(hFences.begin(), 1);
         hFences.push_back(m);
         sort(vFences.begin(), vFences.end());
-        vFences.reserve(vFences.size() + 2);
         vFences.insert(vFences.begin(), 1);
         vFences.push_back(n);
         if (hFences.size() < vFences.size())
